@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Список товарів{% endblock %}
+
+{% block content %}
+<h2>Наші товари</h2>
+
+{% if products %}
+<div class="products">
+  {% for product in products %}
+  <div class="card">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description|truncatewords:20 }}</p>
+    <p class="price">{{ product.price }} грн</p>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>Товарів поки немає.</p>
+{% endif %}
+{% endblock %}
