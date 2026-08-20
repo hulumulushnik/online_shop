@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %}{{ product.name }}{% endblock %} {%
+block content %}
+<a href="{% url 'main:product_list' %}">&larr; До каталогу</a>
+<h2>{{ product.name }}</h2>
+{% if product.image %}
+<img
+  src="{{ product.image.url }}"
+  alt="{{ product.name }}"
+  style="max-width: 400px"
+/>
+{% endif %}
+<p>{{ product.description }}</p>
+<p class="price">{{ product.price }} грн</p>
+<p>Переглядів: {{ product.views }}</p>
+{% endblock %}

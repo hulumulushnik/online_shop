@@ -1,16 +1,32 @@
-{% extends "base.html" %}
-
-{% block title %}Список товарів{% endblock %}
-
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
 {% block content %}
-<h2>Наші товари</h2>
+<div class="categories-menu">
+  <a
+    href="{% url 'main:product_list' %}"
+    class="{% if not category %}active{% endif %}"
+    >Всі товари</a
+  >
+  {% for cat in categories %}
+  <a
+    href="{{ cat.get_absolute_url }}"
+    class="{% if category.slug == cat.slug %}active{% endif %}"
+  >
+    {{ cat.name }}
+  </a>
+  {% endfor %}
+</div>
 
 {% if products %}
 <div class="products">
   {% for product in products %}
   <div class="card">
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+    {% else %}
+    <div class="no-image">Зображення відсутнє</div>
+    {% endif %}
     <h3>{{ product.name }}</h3>
-    <p>{{ product.description|truncatewords:20 }}</p>
     <p class="price">{{ product.price }} грн</p>
   </div>
   {% endfor %}
