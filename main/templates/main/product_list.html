@@ -1,35 +1,45 @@
 {% extends 'base.html' %}
+
 {% block title %}{{ title }}{% endblock %}
+
 {% block content %}
 <div class="categories-menu">
-  <a
-    href="{% url 'main:product_list' %}"
-    class="{% if not category %}active{% endif %}"
-    >Всі товари</a
-  >
-  {% for cat in categories %}
-  <a
-    href="{{ cat.get_absolute_url }}"
-    class="{% if category.slug == cat.slug %}active{% endif %}"
-  >
-    {{ cat.name }}
-  </a>
-  {% endfor %}
+    <a href="{% url 'main:product_list' %}" class="{% if not category %}active{% endif %}">Всі товари</a>
+    {% for cat in categories %}
+    <a href="{{ cat.get_absolute_url }}" class="{% if category.slug == cat.slug %}active{% endif %}">
+        {{ cat.name }} ({{ cat.products.count }})
+    </a>
+    {% endfor %}
+</div>
+
+<div class="sort-container">
+    <span class="sort-label">Сортувати:</span>
+    <div class="sort-buttons">
+        <a href="?sort=new" class="sort-btn {% if current_sort == 'new' or not current_sort %}active{% endif %}">Нові</a>
+        <a href="?sort=old" class="sort-btn {% if current_sort == 'old' %}active{% endif %}">Старі</a>
+        <a href="?sort=popular" class="sort-btn {% if current_sort == 'popular' %}active{% endif %}">Популярні</a>
+        <a href="?sort=price_asc" class="sort-btn {% if current_sort == 'price_asc' %}active{% endif %}">Дешевші</a>
+        <a href="?sort=price_desc" class="sort-btn {% if current_sort == 'price_desc' %}active{% endif %}">Дорожчі</a>
+    </div>
 </div>
 
 {% if products %}
 <div class="products">
-  {% for product in products %}
-  <div class="card">
-    {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
-    {% else %}
-    <div class="no-image">Зображення відсутнє</div>
-    {% endif %}
-    <h3>{{ product.name }}</h3>
-    <p class="price">{{ product.price }} грн</p>
-  </div>
-  {% endfor %}
+    {% for product in products %}
+    <div class="card">
+        <a href="{{ product.get_absolute_url }}">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <div class="no-image">Зображення відсутнє</div>
+            {% endif %}
+            <h3>{{ product.name }}</h3>
+        </a>
+        <p class="price">{{ product.price }} грн</p>
+        <p class="views-count">{{ product.views }} переглядів</p>
+        <a href="{{ product.get_absolute_url }}" class="btn-details">Детальніше</a>
+    </div>
+    {% endfor %}
 </div>
 {% else %}
 <p>Товарів поки немає.</p>

@@ -21,8 +21,8 @@ class ProductAdmin(admin.ModelAdmin):
         if obj.image:
             return format_html(
                 '<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" />',
-                obj.image.url,
+                obj.image.url
             )
-        return format_html("<span>немає зображення</span>")
+        return format_html('<span>{}</span>', "немає зображення")
 
     image_tag.short_description = "Зображення"
