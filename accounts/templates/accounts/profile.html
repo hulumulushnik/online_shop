@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Профіль користувача{% endblock %}
+
+{% block content %}
+<div class="profile-card">
+    <h2>Профіль користувача</h2>
+
+    <div class="profile-details">
+        <div class="profile-row">
+            <span class="profile-label">Ім'я користувача:</span>
+            <span class="profile-value">{{ user.username }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Email:</span>
+            <span class="profile-value">{{ user.email|default:"не вказано" }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Дата реєстрації:</span>
+            <span class="profile-value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Останній вхід:</span>
+            <span class="profile-value">{{ user.last_login|date:"d.m.Y H:i" }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Роль:</span>
+            <span class="profile-value">
+                {% if user.is_staff %}Адміністратор{% else %}Користувач{% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'main:product_list' %}" class="btn-back">До каталогу</a>
+        <a href="{% url 'accounts:logout' %}" class="btn-danger">Вийти з акаунту</a>
+    </div>
+</div>
+{% endblock %}

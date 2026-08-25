@@ -1,0 +1,25 @@
+<header>
+  <div class="header-inner">
+    <a href="{% url 'main:product_list' %}" class="logo">
+      {% block header %}🛍️ Мій магазин{% endblock %}
+    </a>
+    <nav class="nav-auth">
+      {% if user.is_authenticated %}
+      <a href="{% url 'accounts:profile' %}" class="nav-link"
+        >👤 {{ user.username }}</a
+      >
+      {% if user.is_staff %}
+      <a href="/admin/" class="nav-link">Адмін-панель</a>
+      {% endif %}
+      <a href="{% url 'accounts:logout' %}" class="nav-link nav-logout"
+        >Вийти</a
+      >
+      {% else %}
+      <a href="{% url 'accounts:login' %}" class="nav-link">Вхід</a>
+      <a href="{% url 'accounts:register' %}" class="nav-link nav-register"
+        >Реєстрація</a
+      >
+      {% endif %}
+    </nav>
+  </div>
+</header>
