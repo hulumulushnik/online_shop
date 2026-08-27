@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load account_filters account_tags %}
 
 {% block title %}Профіль користувача{% endblock %}
 
@@ -17,7 +18,7 @@
         </div>
         <div class="profile-row">
             <span class="profile-label">Дата реєстрації:</span>
-            <span class="profile-value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
+            <span class="profile-value">{{ user.date_joined|date:"d.m.Y H:i" }} ({% days_on_site user.date_joined %})</span>
         </div>
         <div class="profile-row">
             <span class="profile-label">Останній вхід:</span>
@@ -25,9 +26,7 @@
         </div>
         <div class="profile-row">
             <span class="profile-label">Роль:</span>
-            <span class="profile-value">
-                {% if user.is_staff %}Адміністратор{% else %}Користувач{% endif %}
-            </span>
+            <span class="profile-value">{{ user|user_role }}</span>
         </div>
     </div>
 
