@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Редагування профілю{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h2>Редагування профілю</h2>
+
+    <form method="post" enctype="multipart/form-data" class="auth-form">
+        {% csrf_token %}
+
+        <h3 class="form-section-title">Основна інформація</h3>
+
+        <div class="form-group">
+            <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}</label>
+            {{ user_form.first_name }}
+            {% if user_form.first_name.errors %}
+                <p class="field-error">{{ user_form.first_name.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}</label>
+            {{ user_form.last_name }}
+            {% if user_form.last_name.errors %}
+                <p class="field-error">{{ user_form.last_name.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
+            {{ user_form.email }}
+            {% if user_form.email.errors %}
+                <p class="field-error">{{ user_form.email.errors }}</p>
+            {% endif %}
+        </div>
+
+        <h3 class="form-section-title">Про себе</h3>
+
+        <div class="form-group">
+            <label for="{{ profile_form.avatar.id_for_label }}">{{ profile_form.avatar.label }}</label>
+            {% if request.user.profile.avatar %}
+                <img src="{{ request.user.profile.avatar.url }}" alt="Аватар" class="current-avatar">
+            {% endif %}
+            {{ profile_form.avatar }}
+            {% if profile_form.avatar.errors %}
+                <p class="field-error">{{ profile_form.avatar.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label }}</label>
+            {{ profile_form.bio }}
+            {% if profile_form.bio.errors %}
+                <p class="field-error">{{ profile_form.bio.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.birth_date.id_for_label }}">{{ profile_form.birth_date.label }}</label>
+            {{ profile_form.birth_date }}
+            {% if profile_form.birth_date.errors %}
+                <p class="field-error">{{ profile_form.birth_date.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.location.id_for_label }}">{{ profile_form.location.label }}</label>
+            {{ profile_form.location }}
+            {% if profile_form.location.errors %}
+                <p class="field-error">{{ profile_form.location.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ profile_form.website.id_for_label }}">{{ profile_form.website.label }}</label>
+            {{ profile_form.website }}
+            {% if profile_form.website.errors %}
+                <p class="field-error">{{ profile_form.website.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-auth">Зберегти зміни</button>
+            <a href="{% url 'accounts:profile' %}" class="btn-back">Скасувати</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
