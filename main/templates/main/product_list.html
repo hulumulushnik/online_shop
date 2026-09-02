@@ -38,6 +38,11 @@
         <p class="price">{{ product.price }} грн</p>
         <p class="views-count">{{ product.views }} переглядів</p>
         <a href="{{ product.get_absolute_url }}" class="btn-details">Детальніше</a>
+        <form action="{% url 'main:cart_add' product.id %}" method="post" class="add-to-cart-form">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn-cart">В кошик</button>
+        </form>
     </div>
     {% endfor %}
 </div>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакти{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h2>Зв'язатися з нами</h2>
+
+    {% if messages %}
+    <div class="messages-block">
+        {% for message in messages %}
+        <div class="message-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    <div class="form-errors">
+        {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="field-error">{{ field.errors }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-auth">Надіслати</button>
+    </form>
+</div>
+{% endblock %}

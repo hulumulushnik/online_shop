@@ -60,9 +60,11 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.cart',
             ],
         },
     },
@@ -129,7 +131,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
+    "default": {
+        "BACKEND": "django.core.mail.backends.console.EmailBackend",
+    }
 }
+
+DEFAULT_FROM_EMAIL = 'noreply@onlineshop.com'
+ADMIN_EMAIL = 'lonakrajnicuk@gmail.com'
+CART_SESSION_ID = 'cart'
